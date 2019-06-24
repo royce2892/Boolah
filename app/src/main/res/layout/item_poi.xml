@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="320dp"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:scaleType="fitXY"
+        android:id="@+id/poi_image"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/city_blr"
+        android:layout_height="240dp" />
+
+    <TextView
+        android:id="@+id/poi_name"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/poi_image"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:singleLine="true"
+        android:paddingLeft="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/poi_tags"
+        android:background="@color/flat_ui_2"
+        android:paddingLeft="16dp"
+        android:layout_marginLeft="16dp"
+        android:paddingRight="16dp"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:layout_below="@+id/poi_name"
+        android:text="church,sights,historic"
+        android:layout_height="32dp" />
+</RelativeLayout>

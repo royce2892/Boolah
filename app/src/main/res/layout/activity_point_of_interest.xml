@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/list"
+        android:layout_height="320dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/pro_tip"
+        android:textAllCaps="false"
+        android:padding="16dp"
+        android:layout_above="@+id/button_find_lowest_fares"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:text="Find cheapest roundtrip dates"
+        android:textColor="@color/white"
+        android:layout_marginBottom="12dp"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="24dp"
+        android:layout_above="@+id/button_add_find_cheapest_dates"
+        android:background="@drawable/green_gradient"
+        android:id="@+id/button_find_lowest_fares"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:text="Find flights for specific date"
+        android:textColor="@color/white"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="24dp"
+        android:layout_marginBottom="12dp"
+        android:layout_above="@+id/button_add_city_to_list"
+        android:background="@drawable/green_gradient"
+        android:id="@+id/button_add_find_cheapest_dates"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:text="Boolah Bangalore"
+        android:textColor="@color/white"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="24dp"
+        android:background="@drawable/green_gradient"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/button_add_city_to_list"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

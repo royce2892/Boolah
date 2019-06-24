@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Boolah</string>
+    <string name="title_activity_generic_list">GenericListActivity</string>
+    <string name="title_activity_maps">Map</string>
+</resources>

@@ -16,6 +16,7 @@ import com.amadeus.resources.FlightOffer;
 import com.royce.tripbotify.R;
 import com.royce.tripbotify.adapter.FlightsAdapter;
 import com.royce.tripbotify.utils.AppConstants;
+import com.royce.tripbotify.utils.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +29,8 @@ public class GenericListActivity extends AppCompatActivity {
 
     private RecyclerView mList;
     private int type;
-    private String airportCode = "BLR";
+    // fallback to BARCELONA if no desti code
+    private String airportCode = "BCN", iata = "";
     private List<FlightDate> dates = new ArrayList<>();
     private List<FlightOffer> offers = new ArrayList<>();
     private FlightsAdapter mFlightsAdapter;
@@ -39,6 +41,10 @@ public class GenericListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_generic_list);
         mList = findViewById(R.id.list);
         mList.setLayoutManager(new LinearLayoutManager(this));
+        iata = PreferenceManager.getInstance(this).getString(AppConstants.PREFS_IATA);
+        // fallback to Baltimore if no origin code
+        if(iata.contentEquals(""))
+            iata = "BWI";
         getIntentData();
         getData();
     }
@@ -52,7 +58,7 @@ public class GenericListActivity extends AppCompatActivity {
 
                 if (type == TYPE_FLIGHT_FARES) {
                     FlightDate[] flightDates = amadeus.shopping.flightDates.get(Params
-                            .with("origin", "DEL")
+                            .with("origin", iata)
                             .and("destination", airportCode));
 
                     /*for (FlightDate date : flightDates)
@@ -62,7 +68,7 @@ public class GenericListActivity extends AppCompatActivity {
 
                 } else if (type == TYPE_FLIGHT_CHEAPEST_FARES) {
                     FlightOffer[] flightOffers = amadeus.shopping.flightOffers.get(Params
-                            .with("origin", "DEL")
+                            .with("origin", iata)
                             .and("destination", airportCode)
                             .and("departureDate", "2019-08-01"));
                     //for (FlightOffer offer : flightOffers)
@@ -98,9 +104,9 @@ public class GenericListActivity extends AppCompatActivity {
         type = getIntent().getIntExtra("type", TYPE_FLIGHT_FARES);
         airportCode = getIntent().getStringExtra("code");
         if (getSupportActionBar() != null) {
-            if (type == TYPE_FLIGHT_CHEAPEST_FARES)
+            if (type == TYPE_FLIGHT_FARES)
                 getSupportActionBar().setTitle("Cheapest Flights");
-            else if (type == TYPE_FLIGHT_FARES)
+            else if (type == TYPE_FLIGHT_CHEAPEST_FARES)
                 getSupportActionBar().setTitle("Upcoming fares");
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

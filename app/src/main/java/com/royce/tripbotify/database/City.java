@@ -2,11 +2,11 @@ package com.royce.tripbotify.database;
 
 public class City {
 
-    private String name, airportCode;
+    private String name, airportCode, languageCode;
     private double north,south,east,west;
     private int resId;
 
-    public City(String name, String airportCode, double north, double south, double east, double west, int resId) {
+    public City(String name, String airportCode, double north, double south, double east, double west, int resId,String languageCode) {
         this.name = name;
         this.airportCode = airportCode;
         this.north = north;
@@ -14,6 +14,15 @@ public class City {
         this.east = east;
         this.west = west;
         this.resId = resId;
+        this.languageCode = languageCode;
+    }
+
+    public String getLanguageCode() {
+        return languageCode;
+    }
+
+    public void setLanguageCode(String languageCode) {
+        this.languageCode = languageCode;
     }
 
     public String getName() {

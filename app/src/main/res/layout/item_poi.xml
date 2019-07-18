@@ -25,11 +25,23 @@
 
     <TextView
         android:layout_width="wrap_content"
+        android:id="@+id/poi_type"
+        android:layout_marginLeft="16dp"
+        android:paddingRight="16dp"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:layout_below="@+id/poi_name"
+        android:text="monument"
+        android:layout_height="32dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
         android:id="@+id/poi_tags"
         android:background="@color/flat_ui_2"
         android:paddingLeft="16dp"
         android:layout_marginLeft="16dp"
         android:paddingRight="16dp"
+        android:layout_toRightOf="@+id/poi_type"
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:layout_below="@+id/poi_name"

@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,17 +18,23 @@ import android.view.ViewGroup;
 import com.amadeus.Amadeus;
 import com.amadeus.Params;
 import com.amadeus.exceptions.ResponseException;
+import com.amadeus.resources.Location;
 import com.amadeus.resources.PointOfInterest;
+import com.here.android.mpa.common.GeoCoordinate;
 import com.here.android.mpa.common.GeoPosition;
 import com.here.android.mpa.common.OnEngineInitListener;
 import com.here.android.mpa.common.PositioningManager;
 import com.here.android.mpa.mapping.Map;
 import com.here.android.mpa.mapping.SupportMapFragment;
 import com.royce.tripbotify.R;
+import com.royce.tripbotify.adapter.PointOfInterestAdapter;
+import com.royce.tripbotify.adapter.TodayPointsAdapter;
 import com.royce.tripbotify.utils.AppConstants;
+import com.royce.tripbotify.utils.PreferenceManager;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -44,6 +52,10 @@ public class TodayFragment extends Fragment {
     private String city = "";
     private List includedCityList = Arrays.asList("San Francisco", "New York", "Paris", "Dallas",
             "Bangalore", "London", "Barcelona", "Berlin");
+
+    private RecyclerView mList;
+    private TodayPointsAdapter mAdapter;
+    private List<PointOfInterest> mItems;
 
     public TodayFragment() {
     }
@@ -66,6 +78,8 @@ public class TodayFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mList = view.findViewById(R.id.today_list);
+        mList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         initMap();
         if (geocoder == null)
             geocoder = new Geocoder(getContext(), Locale.getDefault());
@@ -75,7 +89,8 @@ public class TodayFragment extends Fragment {
                     new WeakReference<>(positionListener));
         }
         chechGPSPermission();
-        //getPointsOfInterest(0.0, 0.0);
+        //todo comment and fetch places by location
+        getPointsOfInterest(0.0, 0.0);
     }
 
     private void getPointsOfInterest(double lat, double lon) {
@@ -90,12 +105,23 @@ public class TodayFragment extends Fragment {
                 PointOfInterest[] pointsOfInterest = amadeus.referenceData.locations.pointsOfInterest.get(Params
                         .with("latitude", lat == 0.0 ? "41.39715" : lat)
                         .and("longitude", lon == 0.0 ? "2.160873" : lon));
+
+                mItems = new ArrayList<>(Arrays.asList(pointsOfInterest));
+                if (getActivity() != null)
+                    getActivity().runOnUiThread(this::setAdapter);
+
+                //setAdapter();
                 Log.i(AppConstants.LOG_TAG, "size -> " + pointsOfInterest.length);
             } catch (ResponseException ex) {
                 //todo check response ex once, else user barcelona and build up
                 Log.i(AppConstants.LOG_TAG, ex.getDescription());
             }
         });
+    }
+
+    private void setAdapter() {
+        mAdapter = new TodayPointsAdapter(mItems);
+        mList.setAdapter(mAdapter);
     }
 
     private void chechGPSPermission() {
@@ -176,10 +202,12 @@ public class TodayFragment extends Fragment {
                             if (city.contentEquals("")) {
                                 city = geocoder.getFromLocation(position.getCoordinate().getLatitude(), position.getCoordinate().getLongitude(),
                                         1).get(0).getLocality();
+                                getNearestAirport(position.getCoordinate());
+                                /*todo uncmment
                                 if (includedCityList.contains(city))
                                     getPointsOfInterest(position.getCoordinate().getLatitude(), position.getCoordinate().getLongitude());
                                 else
-                                    getPointsOfInterest(0.0, 0.0);
+                                    getPointsOfInterest(0.0, 0.0);*/
                                 // Log.i(AppConstants.LOG_TAG, city);
                             }
                         } catch (IOException e) {
@@ -194,6 +222,27 @@ public class TodayFragment extends Fragment {
                                                  PositioningManager.LocationStatus status) {
                 }
             };
+
+    private void getNearestAirport(GeoCoordinate coordinate) {
+        AsyncTask.execute(() -> {
+            if (amadeus == null)
+                amadeus = Amadeus
+                        .builder("hiQb0uhPPNuSGtm5ssxapQ2K8nHvNJ3n", "vanIVyyEeaFqgYGL")
+                        .build();
+
+            try {
+                Location[] locations = amadeus.referenceData.locations.airports.get(Params
+                        .with("latitude", coordinate.getLatitude())
+                        .and("longitude", coordinate.getLongitude()));
+                Log.i(AppConstants.LOG_TAG, "code -> " + locations[0].getIataCode());
+                PreferenceManager.getInstance(getContext()).put(AppConstants.PREFS_IATA, locations[0].getIataCode());
+//                locations[0].getIataCode();
+            } catch (ResponseException ex) {
+                //todo check response ex once, else user barcelona and build up
+                Log.i(AppConstants.LOG_TAG, ex.getDescription());
+            }
+        });
+    }
 
 
 }

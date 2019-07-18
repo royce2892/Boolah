@@ -35,6 +35,16 @@ public class ApiClient {
         return okHttpClient;
     }
 
+    public static Response getTranslatedText(String json, String languageCode) throws IOException {
+        MediaType mediaType = MediaType.parse("application/json");
+        String url = "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=" + languageCode;
+        Request request = new Request.Builder()
+                .url(url).post(RequestBody.create(mediaType, json))
+                .addHeader("Ocp-Apim-Subscription-Key", "ca14e3435e41449e8da03f531e489c09")
+                .addHeader("Content-type", "application/json").build();
+        return getInstance().newCall(request).execute();
+    }
+
     public static String getUnsplashImageURL(String searchTerm) {
         try {
             Request request = new Request.Builder()

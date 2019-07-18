@@ -30,6 +30,7 @@ public class ViewPagerWithTabsActivity extends AppCompatActivity implements Disc
 
     private String token;
     private Amadeus amadeus;
+    private String[] TITLE = {"Today","Explore","My World"};
     //private List<FlightDestination> experiences = new ArrayList<>();
 
     @Override
@@ -38,7 +39,7 @@ public class ViewPagerWithTabsActivity extends AppCompatActivity implements Disc
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         if (getSupportActionBar() != null)
-            getSupportActionBar().hide();
+            getSupportActionBar().setTitle(TITLE[0]);
         setupPagerAndInitTabs();
     }
 
@@ -139,14 +140,15 @@ public class ViewPagerWithTabsActivity extends AppCompatActivity implements Disc
         startActivity(new Intent(this, TinderCardsCityActivity.class).
                 putExtra("south", item.getSouth()).
                 putExtra("airportCode", item.getAirportCode()).
+                putExtra("languageCode", item.getLanguageCode()).
                 putExtra("west", item.getWest()).
                 putExtra("name", item.getName()));
     }
 
     private void setupPagerAndInitTabs() {
-        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.ic_today_selected).setText("Today"));
-        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.ic_explore).setText("Explore"));
-        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.ic_favorite).setText("My World"));
+        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.ic_today_selected)/*setText("Today")*/);
+        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.ic_explore)/*.setText("Explore")*/);
+        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.ic_favorite)/*.setText("My World")*/);
 
         HomePagerAdapter pagerAdapter = new HomePagerAdapter(getSupportFragmentManager());
 
@@ -159,6 +161,7 @@ public class ViewPagerWithTabsActivity extends AppCompatActivity implements Disc
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mPager.setCurrentItem(tab.getPosition());
+                setToolTitle(tab.getPosition());
                 //setToolbarTitle(tab.getPosition());
                 //     tab.getIcon().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN);
                 switch (tab.getPosition()) {
@@ -197,7 +200,12 @@ public class ViewPagerWithTabsActivity extends AppCompatActivity implements Disc
             }
         });
 
-       // mPager.setCurrentItem(0);
+        // mPager.setCurrentItem(0);
 
+    }
+
+    private void setToolTitle(int position) {
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setTitle(TITLE[position]);
     }
 }

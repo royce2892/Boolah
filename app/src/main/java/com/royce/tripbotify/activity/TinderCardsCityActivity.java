@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.amadeus.Amadeus;
@@ -35,7 +37,7 @@ public class TinderCardsCityActivity extends AppCompatActivity {
     private List<PointOfInterest> mItems = new ArrayList<>();
     private PointOfInterestAdapter mAdapter;
     private RecyclerView mDeckLayout;
-    private String name, airportCode;
+    private String name, airportCode, languageCode;
     private double south, west;
     private TextView mProTip;
     private PreferenceManager manager;
@@ -58,16 +60,23 @@ public class TinderCardsCityActivity extends AppCompatActivity {
         findViewById(R.id.button_find_lowest_fares).setOnClickListener(v -> startActivity(new Intent(TinderCardsCityActivity.this,
                 GenericListActivity.class).putExtra("type", GenericListActivity.TYPE_FLIGHT_FARES).putExtra("code", airportCode)));
 
+        Button mBoolah = findViewById(R.id.button_add_city_to_list);
+        mBoolah.setText("Learn ".concat(name) +"'s local language");
+
+        //todo replace with favorite
+        mBoolah.setOnClickListener(v -> startActivity(new Intent(TinderCardsCityActivity.this,TranslateActivity.class).
+                putExtra("languageCode",languageCode)));
     }
 
     private void getIntentData() {
         name = getIntent().getStringExtra("name");
+        languageCode = getIntent().getStringExtra("languageCode");
         south = getIntent().getDoubleExtra("south", 12.97321);
         west = getIntent().getDoubleExtra("west", 77.586856);
         south += 0.02;
         west += 0.02;
-       // south = round(south, 6);
-       // west = round(west, 6);
+        // south = round(south, 6);
+        // west = round(west, 6);
         Log.i(AppConstants.LOG_TAG, south + " - " + west);
         airportCode = getIntent().getStringExtra("airportCode");
         if (getSupportActionBar() != null) {
@@ -150,7 +159,7 @@ public class TinderCardsCityActivity extends AppCompatActivity {
             try {
 
                 PointOfInterest[] pointsOfInterest = amadeus.referenceData.locations.pointsOfInterest.get(Params
-                        .with("latitude", south +"")
+                        .with("latitude", south + "")
                         .and("longitude", west + ""));
 
                 mItems = new ArrayList<>(Arrays.asList(pointsOfInterest));

@@ -61,7 +61,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
             holder.mReturnTime.setText(Utils.getJustDate(holder.mDate.getReturnDate()));
             String price = holder.mDate.getPrice().toString().substring(holder.mDate.getPrice().toString().indexOf("=") + 1);
             price = price.substring(0, price.length() - 1);
-            holder.mPrice.setText("₹".concat(price));
+            holder.mPrice.setText("$".concat(price));
         }
 
         /*holder.mView.setOnClickListener(v -> {

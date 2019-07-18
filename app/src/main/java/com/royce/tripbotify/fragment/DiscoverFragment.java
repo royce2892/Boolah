@@ -61,14 +61,14 @@ public class DiscoverFragment extends Fragment {
     }
 
     private void initData() {
-        cities.add(new City("Bangalore", "BLR", 13.023577, 12.923210, 77.642256, 77.536856, R.drawable.city_blr));
-        cities.add(new City("Barcelona", "BCN", 41.42, 41.347463, 2.228208, 2.11, R.drawable.city_blr));
-        cities.add(new City("Berlin", "BER", 52.541755, 52.490569, 13.457198, 13.354201, R.drawable.city_blr));
-        cities.add(new City("Dallas", "DFW", 32.806993, 32.740310, -96.737293, -96.836857, R.drawable.city_blr));
-        cities.add(new City("London", "LCY", 51.520180, 51.484703, -0.061048, -0.169882, R.drawable.city_blr));
-        cities.add(new City("New York", "JFK", 40.792027, 40.697607, -73.942847, -74.058204, R.drawable.city_blr));
-        cities.add(new City("Paris", "CDG", 48.91, 48.80, 2.46, 2.25, R.drawable.city_blr));
-        cities.add(new City("San Francisco", "SFO", 37.810980, 37.732007, -122.370076, -122.483716, R.drawable.city_blr));
+        cities.add(new City("Bangalore", "BLR", 13.023577, 12.923210, 77.642256, 77.536856, R.drawable.city_blr, "hi"));
+        cities.add(new City("Barcelona", "BCN", 41.42, 41.347463, 2.228208, 2.11, R.drawable.city_barcelona,"es"));
+        cities.add(new City("Berlin", "BER", 52.541755, 52.490569, 13.457198, 13.354201, R.drawable.city_berlin, "de"));
+        cities.add(new City("Dallas", "DFW", 32.806993, 32.740310, -96.737293, -96.836857, R.drawable.city_dallas, "en"));
+        cities.add(new City("London", "LCY", 51.520180, 51.484703, -0.061048, -0.169882, R.drawable.city_london, "en"));
+        cities.add(new City("New York", "JFK", 40.792027, 40.697607, -73.942847, -74.058204, R.drawable.city_ny, "en"));
+        cities.add(new City("Paris", "CDG", 48.91, 48.80, 2.46, 2.25, R.drawable.city_paris, "fr"));
+        cities.add(new City("San Francisco", "SFO", 37.810980, 37.732007, -122.370076, -122.483716, R.drawable.city_sfo, "en"));
     }
 
     @Override

@@ -17,9 +17,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.royce.tripbotify.R;
 import com.royce.tripbotify.core.ApiClient;
 import com.royce.tripbotify.fragment.DiscoverFragment.OnDiscoverCitiesInteractionListener;
-import com.royce.tripbotify.utils.AppConstants;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,9 +44,9 @@ public class PointOfInterestAdapter extends RecyclerView.Adapter<PointOfInterest
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
        // Log.i(AppConstants.LOG_TAG, holder.mItem.toString());
-        holder.mName.setText(mValues.get(position).getName());
-        holder.mTags.setText(TextUtils.join(",", mValues.get(position).getTags()));
-
+        holder.mName.setText(holder.mItem.getName());
+        holder.mTags.setText(TextUtils.join(",", holder.mItem.getTags()));
+        holder.mType.setText(holder.mItem.getTags()[0]);
         //Log.i(AppConstants.LOG_TAG, ApiClient.getUnsplashImageURL(holder.mItem.getName()));
 
         try {
@@ -93,6 +90,7 @@ public class PointOfInterestAdapter extends RecyclerView.Adapter<PointOfInterest
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mName;
+        public final TextView mType;
         public final TextView mTags;
         public final ImageView mImage;
         public PointOfInterest mItem;
@@ -101,6 +99,7 @@ public class PointOfInterestAdapter extends RecyclerView.Adapter<PointOfInterest
             super(view);
             mView = view;
             mName = view.findViewById(R.id.poi_name);
+            mType = view.findViewById(R.id.poi_type);
             mImage = view.findViewById(R.id.poi_image);
             mTags = view.findViewById(R.id.poi_tags);
         }

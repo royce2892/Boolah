@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/et_text"
+        android:layout_width="match_parent"
+        android:layout_height="184dp"
+        android:gravity="left|top"
+        android:layout_margin="12dp"
+        android:textAllCaps="false"
+        android:background="@drawable/border_message_layout"
+        android:hint="Enter text to be translated"
+        android:inputType="textMultiLine"
+        android:padding="16dp"
+        tools:ignore="UnusedAttribute" />
+
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_text"
+        android:layout_margin="16dp"
+        android:visibility="gone"
+        android:text="Translated text"
+        android:textAllCaps="false"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/output"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/label"
+        android:layout_margin="16dp"
+        android:textAllCaps="false"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/button_translate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="12dp"
+        android:background="@drawable/green_gradient"
+        android:gravity="center"
+        android:text="Translate"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

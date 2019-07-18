@@ -11,4 +11,5 @@ public class AppConstants {
     public static final String URL_AMAD_FLIGHT_INSPIRATION = "shopping/flight-destinations/";
 
     public static final String PREFS_TAGS = "tags";
+    public static final String PREFS_IATA = "iata";
 }

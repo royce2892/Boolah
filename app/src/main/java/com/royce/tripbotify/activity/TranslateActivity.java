@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.royce.tripbotify.R;
 import com.royce.tripbotify.core.ApiClient;
+import com.royce.tripbotify.database.RealmTranslation;
 import com.royce.tripbotify.utils.AppConstants;
 
 import org.json.JSONArray;
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import io.realm.Realm;
 import okhttp3.Response;
 
 public class TranslateActivity extends AppCompatActivity {
@@ -29,6 +31,8 @@ public class TranslateActivity extends AppCompatActivity {
     private EditText mInputText;
     private boolean isAPICalled = false;
     private TextView mLabel,mOutput;
+    private Realm realm;
+    private String savedText = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,9 @@ public class TranslateActivity extends AppCompatActivity {
         mInputText = findViewById(R.id.et_text);
         mLabel = findViewById(R.id.label);
         mOutput = findViewById(R.id.output);
+        realm = Realm.getDefaultInstance();
+
+        findViewById(R.id.button_translate_save).setOnClickListener(v -> saveTranslation());
 
         findViewById(R.id.button_translate).setOnClickListener(v -> {
             if(TextUtils.isEmpty(mInputText.getText().toString()))
@@ -46,6 +53,24 @@ public class TranslateActivity extends AppCompatActivity {
             else
                 translate();
         });
+    }
+
+    private void saveTranslation() {
+        if(TextUtils.isEmpty(mOutput.getText().toString())) {
+            Toast.makeText(TranslateActivity.this,"No translation found to be saved",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(savedText.contentEquals(mInputText.getText().toString())) {
+            Toast.makeText(TranslateActivity.this,"This translation is already saved locally",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        realm.beginTransaction();
+        RealmTranslation translation = realm.createObject(RealmTranslation.class);
+        translation.setInput(mInputText.getText().toString());
+        translation.setOutput(mOutput.getText().toString());
+        translation.setLanguageCode(languageCode);
+        savedText = mInputText.getText().toString();
+        realm.commitTransaction();
     }
 
 

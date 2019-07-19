@@ -39,6 +39,17 @@
         android:textSize="16sp" />
 
     <Button
+        android:id="@+id/button_translate_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_translate"
+        android:layout_margin="12dp"
+        android:background="@drawable/green_gradient"
+        android:gravity="center"
+        android:text="Save locally"
+        android:textColor="@color/white" />
+
+    <Button
         android:id="@+id/button_translate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -30,7 +30,7 @@ public class GenericListActivity extends AppCompatActivity {
     private RecyclerView mList;
     private int type;
     // fallback to BARCELONA if no desti code
-    private String airportCode = "BCN", iata = "";
+    private String airportCode = "BCN", iata = "", date = "2019-08-01";
     private List<FlightDate> dates = new ArrayList<>();
     private List<FlightOffer> offers = new ArrayList<>();
     private FlightsAdapter mFlightsAdapter;
@@ -42,9 +42,9 @@ public class GenericListActivity extends AppCompatActivity {
         mList = findViewById(R.id.list);
         mList.setLayoutManager(new LinearLayoutManager(this));
         iata = PreferenceManager.getInstance(this).getString(AppConstants.PREFS_IATA);
-        // fallback to Baltimore if no origin code
-        if(iata.contentEquals(""))
-            iata = "BWI";
+        // fallback to Bombay if no origin code
+        if (iata.contentEquals(""))
+            iata = "IAD";
         getIntentData();
         getData();
     }
@@ -70,9 +70,9 @@ public class GenericListActivity extends AppCompatActivity {
                     FlightOffer[] flightOffers = amadeus.shopping.flightOffers.get(Params
                             .with("origin", iata)
                             .and("destination", airportCode)
-                            .and("departureDate", "2019-08-01"));
+                            .and("departureDate", date));
                     //for (FlightOffer offer : flightOffers)
-                     //   Log.i(AppConstants.LOG_TAG, offer.toString());
+                    //   Log.i(AppConstants.LOG_TAG, offer.toString());
                     offers = new ArrayList<>(Arrays.asList(flightOffers));
                 }
 
@@ -87,6 +87,10 @@ public class GenericListActivity extends AppCompatActivity {
 
 
             } catch (ResponseException e) {
+                /*if(!iata.contentEquals("IAD")) {
+                    iata = "IAD";
+                    getData();
+                }*/
                 Log.i(AppConstants.LOG_TAG, e.getCode() + e.getDescription());
             }
         });
@@ -94,15 +98,17 @@ public class GenericListActivity extends AppCompatActivity {
 
     private void setAdapter() {
         if (dates.size() == 0)
-            mFlightsAdapter = new FlightsAdapter(offers);
+            mFlightsAdapter = new FlightsAdapter(offers, date,iata, airportCode);
         else
-            mFlightsAdapter = new FlightsAdapter(dates, false);
+            mFlightsAdapter = new FlightsAdapter(dates, iata, airportCode);
         mList.setAdapter(mFlightsAdapter);
     }
 
     private void getIntentData() {
         type = getIntent().getIntExtra("type", TYPE_FLIGHT_FARES);
         airportCode = getIntent().getStringExtra("code");
+        date = getIntent().getStringExtra("date");
+//        Log.i(AppConstants.LOG_TAG,date);
         if (getSupportActionBar() != null) {
             if (type == TYPE_FLIGHT_FARES)
                 getSupportActionBar().setTitle("Cheapest Flights");

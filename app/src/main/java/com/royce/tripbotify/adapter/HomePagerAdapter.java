@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.royce.tripbotify.fragment.DiscoverFragment;
+import com.royce.tripbotify.fragment.MyWorldFragment;
 import com.royce.tripbotify.fragment.TodayFragment;
 
 public class HomePagerAdapter extends FragmentPagerAdapter {
@@ -20,7 +21,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
         else if (position == 1)
             return DiscoverFragment.newInstance(2);
         else
-            return DiscoverFragment.newInstance(3);
+            return MyWorldFragment.newInstance();
 
     }
 

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_alignParentTop="true"
+            android:id="@+id/label_4"
+            android:background="@null"
+            android:text="About Me"
+            android:padding="4dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/label_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="4dp"
+            android:layout_below="@+id/label_4"
+            android:text="Liked Places"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/label_1"
+            android:text="See more"
+            android:id="@+id/more_poi"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:layout_marginRight="8dp"
+            android:layout_alignBottom="@+id/label_1"
+            android:textColor="@color/colorAccent"
+            android:background="@null"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_liked_places"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/label_1"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:layoutManager="LinearLayoutManager" />
+
+        <TextView
+            android:id="@+id/label_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_liked_places"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="4dp"
+            android:text="Tracked Flights"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/label_2"
+            android:text="See more"
+            android:layout_marginRight="8dp"
+            android:id="@+id/more_flights"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:layout_alignBottom="@+id/label_2"
+            android:textColor="@color/colorAccent"
+            android:background="@null"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_tracked_flights"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/label_2"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:layoutManager="LinearLayoutManager" />
+
+        <TextView
+            android:id="@+id/label_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_tracked_flights"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="4dp"
+            android:text="Saved Translations"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/label_3"
+            android:text="See more"
+            android:layout_marginRight="8dp"
+            android:id="@+id/more_trans"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:layout_alignBottom="@+id/label_3"
+            android:textColor="@color/colorAccent"
+            android:background="@null"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_saved_translations"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/label_3"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:layoutManager="LinearLayoutManager" />
+
+
+    </RelativeLayout>
+
+</ScrollView>

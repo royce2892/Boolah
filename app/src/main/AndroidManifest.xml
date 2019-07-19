@@ -14,10 +14,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.TranslateActivity"  android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".activity.GenericListActivity" />
-        <activity android:name=".activity.TinderCardsCityActivity" />
-        <activity android:name=".activity.ViewPagerWithTabsActivity">
+        <activity
+            android:name=".activity.TranslateActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.GenericListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AboutMeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TinderCardsCityActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ViewPagerWithTabsActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

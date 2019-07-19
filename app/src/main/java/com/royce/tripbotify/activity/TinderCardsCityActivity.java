@@ -1,5 +1,6 @@
 package com.royce.tripbotify.activity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.amadeus.Amadeus;
@@ -19,14 +21,17 @@ import com.amadeus.resources.PointOfInterest;
 import com.amadeus.travel.analytics.airTraffic.BusiestPeriod;
 import com.royce.tripbotify.R;
 import com.royce.tripbotify.adapter.PointOfInterestAdapter;
+import com.royce.tripbotify.database.RealmPointOfInterest;
 import com.royce.tripbotify.utils.AppConstants;
 import com.royce.tripbotify.utils.PreferenceManager;
 import com.royce.tripbotify.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
+import io.realm.Realm;
 import swipeable.com.layoutmanager.OnItemSwiped;
 import swipeable.com.layoutmanager.SwipeableLayoutManager;
 import swipeable.com.layoutmanager.SwipeableTouchHelperCallback;
@@ -41,11 +46,13 @@ public class TinderCardsCityActivity extends AppCompatActivity {
     private double south, west;
     private TextView mProTip;
     private PreferenceManager manager;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_point_of_interest);
+        realm = Realm.getDefaultInstance();
         mDeckLayout = findViewById(R.id.list);
         mProTip = findViewById(R.id.pro_tip);
         addSwipeHelper();
@@ -53,19 +60,36 @@ public class TinderCardsCityActivity extends AppCompatActivity {
         getPoints();
         manager = PreferenceManager.getInstance(this);
 
-        findViewById(R.id.button_add_find_cheapest_dates).setOnClickListener(v -> startActivity(new Intent(TinderCardsCityActivity.this,
-                GenericListActivity.class).putExtra("type", GenericListActivity.TYPE_FLIGHT_CHEAPEST_FARES).putExtra("code", airportCode)));
+        findViewById(R.id.button_add_find_cheapest_dates).setOnClickListener(v -> showChooseDateDialog());
 
-        //ask for date //todo
         findViewById(R.id.button_find_lowest_fares).setOnClickListener(v -> startActivity(new Intent(TinderCardsCityActivity.this,
                 GenericListActivity.class).putExtra("type", GenericListActivity.TYPE_FLIGHT_FARES).putExtra("code", airportCode)));
 
         Button mBoolah = findViewById(R.id.button_add_city_to_list);
-        mBoolah.setText("Learn ".concat(name) +"'s local language");
+        mBoolah.setText("Learn ".concat(name) + "'s local language");
 
         //todo replace with favorite
-        mBoolah.setOnClickListener(v -> startActivity(new Intent(TinderCardsCityActivity.this,TranslateActivity.class).
-                putExtra("languageCode",languageCode)));
+        mBoolah.setOnClickListener(v -> startActivity(new Intent(TinderCardsCityActivity.this, TranslateActivity.class).
+                putExtra("languageCode", languageCode)));
+    }
+
+    private void showChooseDateDialog() {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog dialog = new DatePickerDialog(this, (view, year, monthOfYear, dayOfMonth) -> {
+            Calendar newDate = Calendar.getInstance();
+            monthOfYear++;
+            String month = monthOfYear < 10 ? "0" + monthOfYear : monthOfYear + "";
+            String day = dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth + "";
+            gotoFaresSearchActivity(year + "-" + month + "-" + day);
+            newDate.set(year, monthOfYear, dayOfMonth);
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+
+    private void gotoFaresSearchActivity(String date) {
+        startActivity(new Intent(TinderCardsCityActivity.this,
+                GenericListActivity.class).putExtra("type", GenericListActivity.TYPE_FLIGHT_CHEAPEST_FARES).
+                putExtra("code", airportCode).putExtra("date", date));
     }
 
     private void getIntentData() {
@@ -91,12 +115,16 @@ public class TinderCardsCityActivity extends AppCompatActivity {
                 new SwipeableTouchHelperCallback(new OnItemSwiped() {
                     @Override
                     public void onItemSwiped() {
+                        Log.i(AppConstants.LOG_TAG, "item swipe called");
                         mAdapter.removeTopItem();
+                        Log.i(AppConstants.LOG_TAG, "item swipe done");
                     }
 
                     @Override
                     public void onItemSwipedLeft() {
+                        Log.i(AppConstants.LOG_TAG, "item swipe left called");
                         saveFirstToPrefs();
+                        Log.i(AppConstants.LOG_TAG, "item swipe left done");
                     }
 
                     @Override
@@ -123,9 +151,26 @@ public class TinderCardsCityActivity extends AppCompatActivity {
     private void saveFirstToPrefs() {
         for (String tag : mItems.get(0).getTags()) {
             manager.increment(tag);
-            //     Log.i(AppConstants.LOG_TAG, manager.getInt(tag) + " tag " + tag);
+            Log.i(AppConstants.LOG_TAG, manager.getInt(tag) + " tag " + tag);
             manager.putInSet(AppConstants.PREFS_TAGS, tag);
-            //     Log.i(AppConstants.LOG_TAG, manager.getSet(AppConstants.PREFS_TAGS).toString());
+            Log.i(AppConstants.LOG_TAG, manager.getSet(AppConstants.PREFS_TAGS).toString());
+        }
+        if (mAdapter.getTopItem() != null) {
+            Log.i(AppConstants.LOG_TAG, "realm save called for " + mAdapter.getTopItem().getName());
+            realm.beginTransaction();
+            RealmPointOfInterest point = realm.createObject(RealmPointOfInterest.class);
+            PointOfInterest pointOfInterest = mAdapter.getTopItem();
+            point.setName(pointOfInterest.getName());
+            point.setType(pointOfInterest.getType());
+            point.setCategory(pointOfInterest.getCategory());
+            point.setSubType(pointOfInterest.getSubType());
+            point.setLat(pointOfInterest.getGeoCode().getLatitude());
+            point.setLon(pointOfInterest.getGeoCode().getLongitude());
+            point.setCity(name);
+            point.setTags(pointOfInterest.getTags());
+            realm.commitTransaction();
+            Log.i(AppConstants.LOG_TAG, "realm save done for " + mAdapter.getTopItem().getName());
+
         }
     }
 

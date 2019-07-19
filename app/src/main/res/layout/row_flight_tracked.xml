@@ -2,38 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@drawable/oval_bg"
-    android:layout_margin="8dp"
+    android:layout_margin="4dp"
     android:layout_height="wrap_content"
     android:gravity="center_vertical">
-
-    <ImageView
-        android:id="@+id/item_flight_logo"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_centerVertical="true"
-        android:layout_margin="@dimen/text_margin"
-        android:scaleType="centerCrop"
-        android:alpha="0.4"
-        android:src="@drawable/ic_flight_logo" />
-
-    <TextView
-        android:id="@+id/item_flight_departure_placeholder"
-        android:layout_width="wrap_content"
-        android:layout_toRightOf="@+id/item_flight_logo"
-        android:layout_height="wrap_content"
-        android:text="Departure"
-        android:layout_marginTop="16dp"
-        android:textAllCaps="false"
-        android:layout_marginLeft="8dp"
-        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/item_flight_time"
         android:layout_width="wrap_content"
-        android:layout_toRightOf="@+id/item_flight_departure_placeholder"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Sep 03, 12:00 - Sep 04, 12:00"
         android:layout_marginLeft="8dp"
         android:textAllCaps="false"
         android:textSize="14sp" />
@@ -42,39 +20,29 @@
         android:layout_width="match_parent"
         android:layout_toRightOf="@+id/item_flight_logo"
         android:layout_centerVertical="true"
+        android:visibility="gone"
         android:layout_alignRight="@id/item_flight_time"
         android:layout_alignLeft="@+id/item_flight_departure_placeholder"
         android:background="@color/separator"
         android:layout_height="1dp" />
 
     <TextView
-        android:id="@+id/item_flight_return_placeholder"
-        android:layout_width="wrap_content"
-        android:layout_toRightOf="@+id/item_flight_logo"
-        android:layout_below="@+id/item_flight_departure_placeholder"
-        android:layout_height="wrap_content"
-        android:text="Return"
-        android:textAllCaps="false"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/item_flight_return_time"
+        android:id="@+id/item_flight_codes"
         android:layout_width="wrap_content"
         android:layout_below="@+id/item_flight_time"
         android:layout_alignLeft="@+id/item_flight_time"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:layout_marginTop="8dp"
+        android:text="DEL - BLR"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
         android:textAllCaps="false"
         android:textSize="14sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/item_flight_departure_placeholder"
         android:id="@+id/item_flight_price"
+        android:layout_centerVertical="true"
         android:textAllCaps="false"
         android:maxLength="6"
         android:textColor="@color/colorPrimary"
@@ -92,6 +60,7 @@
         android:background="@drawable/green_gradient"
         android:layout_alignBottom="@+id/item_flight_return_placeholder"
         android:text="Track"
+        android:visibility="gone"
         android:textSize="12sp"
         android:textColor="@color/white"
         android:layout_height="wrap_content" />

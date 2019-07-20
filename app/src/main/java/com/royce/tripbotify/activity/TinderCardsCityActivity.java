@@ -1,6 +1,7 @@
 package com.royce.tripbotify.activity;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,7 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amadeus.Amadeus;
 import com.amadeus.Params;
@@ -42,6 +45,7 @@ public class TinderCardsCityActivity extends AppCompatActivity {
     private List<PointOfInterest> mItems = new ArrayList<>();
     private PointOfInterestAdapter mAdapter;
     private RecyclerView mDeckLayout;
+    private ProgressBar mProgressBar;
     private String name, airportCode, languageCode;
     private double south, west;
     private TextView mProTip;
@@ -55,6 +59,7 @@ public class TinderCardsCityActivity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
         mDeckLayout = findViewById(R.id.list);
         mProTip = findViewById(R.id.pro_tip);
+        mProgressBar = findViewById(R.id.progress_bar);
         addSwipeHelper();
         getIntentData();
         getPoints();
@@ -71,6 +76,22 @@ public class TinderCardsCityActivity extends AppCompatActivity {
         //todo replace with favorite
         mBoolah.setOnClickListener(v -> startActivity(new Intent(TinderCardsCityActivity.this, TranslateActivity.class).
                 putExtra("languageCode", languageCode)));
+
+        mProgressBar.setVisibility(View.VISIBLE);
+
+        checkAndShowTinderDialog();
+    }
+
+    private void checkAndShowTinderDialog() {
+        if(PreferenceManager.getInstance(this).getBoolean(AppConstants.PREFS_TINDER_SHOWN))
+            return;
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_tinder);
+        dialog.findViewById(R.id.button_dismiss).setOnClickListener(v -> {
+            dialog.dismiss();
+            PreferenceManager.getInstance(TinderCardsCityActivity.this).put(AppConstants.PREFS_TINDER_SHOWN,true);
+        });
+        dialog.show();
     }
 
     private void showChooseDateDialog() {
@@ -115,9 +136,6 @@ public class TinderCardsCityActivity extends AppCompatActivity {
                 new SwipeableTouchHelperCallback(new OnItemSwiped() {
                     @Override
                     public void onItemSwiped() {
-                        Log.i(AppConstants.LOG_TAG, "item swipe called");
-                        mAdapter.removeTopItem();
-                        Log.i(AppConstants.LOG_TAG, "item swipe done");
                     }
 
                     @Override
@@ -129,6 +147,8 @@ public class TinderCardsCityActivity extends AppCompatActivity {
 
                     @Override
                     public void onItemSwipedRight() {
+                        Toast.makeText(TinderCardsCityActivity.this,"Oops, Boolah is sorry you didn't like that suggestion from me",Toast.LENGTH_SHORT).show();
+                        mAdapter.removeTopItem();
                     }
 
                     @Override
@@ -169,14 +189,16 @@ public class TinderCardsCityActivity extends AppCompatActivity {
             point.setCity(name);
             point.setTags(pointOfInterest.getTags());
             realm.commitTransaction();
-            Log.i(AppConstants.LOG_TAG, "realm save done for " + mAdapter.getTopItem().getName());
-
+            Toast.makeText(this,"Bingo! Boolah have saved " + point.getName() +" to your liked places",Toast.LENGTH_SHORT).show();
+          //  Log.i(AppConstants.LOG_TAG, "realm save done for " + mAdapter.getTopItem().getName());
+            mAdapter.removeTopItem();
         }
     }
 
     private void setAdapter() {
         mAdapter = new PointOfInterestAdapter(mItems);
         mDeckLayout.setAdapter(mAdapter);
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -218,7 +240,7 @@ public class TinderCardsCityActivity extends AppCompatActivity {
                 runOnUiThread(() -> mProTip.setText(Utils.getBusiestPeriodString(name, busiestPeriods)));
 
                 //todo uncomment
-                /*while (mItems.size() < 100) {
+                while (mItems.size() < 40) {
                     south += 0.02;
                     west += 0.02;
                     PointOfInterest[] s = amadeus.referenceData.locations.pointsOfInterest.get(Params
@@ -226,9 +248,10 @@ public class TinderCardsCityActivity extends AppCompatActivity {
                             .and("longitude", west));
                     //Log.i(AppConstants.LOG_TAG, s[s.length - 1].toString());
                     mItems.addAll(Arrays.asList(s));
-                }*/
+                }
                 //Log.i(AppConstants.LOG_TAG, pointsOfInterest[0].toString());
             } catch (ResponseException e) {
+                runOnUiThread(() -> mProgressBar.setVisibility(View.GONE));
                 Log.i(AppConstants.LOG_TAG, e.getCode() + e.getDescription());
             }
         });

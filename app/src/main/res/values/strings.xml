@@ -3,4 +3,8 @@
     <string name="title_activity_generic_list">GenericListActivity</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_translate">TranslateActivity</string>
+    <string name="tinder">Welcome to Boolah Explore, this is where it all starts. All you need to do is to swipe left if you like a point
+    or swipe right if you wish to skip over the same. We save your preferences and your daily itinerary is formulated based on your
+    travel preferences and your distances to the same from your current location. The more you swipe the better our results will match
+    your interests. Keep swiping and voila your AI powered itinerary is here.</string>
 </resources>

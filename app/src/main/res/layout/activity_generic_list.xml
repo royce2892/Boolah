@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/list"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layoutManager="LinearLayoutManager" />
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_above="@+id/list_tip"
+        android:layout_alignParentTop="true"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:id="@+id/list_tip"
+        android:visibility="gone"
+        android:layout_height="wrap_content" />
+
+    <include layout="@layout/progress_bar" />
+
+</RelativeLayout>

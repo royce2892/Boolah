@@ -22,15 +22,19 @@
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
-        android:textColor="@color/white"
-        android:text="Barcelona"
+        android:textColor="@color/black"
         android:padding="8dp"
+        android:id="@+id/city_name"
         android:textStyle="bold"
-        android:background="@drawable/border_tv"
         android:textAllCaps="false"
         android:layout_marginTop="16dp"
         android:textSize="34sp"
         android:layout_height="wrap_content" />
+
+<!--
+    android:background="@drawable/border_tv"
+-->
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/today_list"

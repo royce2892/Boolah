@@ -1,15 +1,17 @@
 package com.royce.tripbotify.adapter;
 
-import android.os.AsyncTask;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.StrictMode;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amadeus.resources.PointOfInterest;
 import com.bumptech.glide.Glide;
@@ -51,7 +53,6 @@ public class TodayPointsAdapter extends RecyclerView.Adapter<TodayPointsAdapter.
         //Log.i(AppConstants.LOG_TAG, ApiClient.getUnsplashImageURL(holder.mItem.getName()));
 
         try {
-            //todo uncomment
             Glide.with(holder.mImage)
                     .load(ApiClient.getUnsplashImageURL(holder.mItem.getName()))
                     .apply(new RequestOptions().placeholder(R.drawable.city_blr).error(R.drawable.city_blr))
@@ -59,15 +60,23 @@ public class TodayPointsAdapter extends RecyclerView.Adapter<TodayPointsAdapter.
         } catch (IllegalArgumentException ex) {
             holder.mImage.setImageResource(R.drawable.city_blr);
         }
-//        holder.mImage.setImageResource(mValues.get(position).getResId());
 
-       /* holder.mView.setOnClickListener(v -> {
-            if (null != mListener) {
-                // Notify the active callbacks interface (the activity, if the
-                // fragment is attached to one) that an item has been selected.
-                mListener.onCityClick(holder.mItem);
-            }
-        });*/
+        holder.mNavigate.setOnClickListener(v -> gotoMap(v, holder.mItem));
+        holder.mRemove.setOnClickListener(v -> confirmRemove(v, holder.mItem));
+    }
+
+    private void gotoMap(View v, PointOfInterest mItem) {
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + mItem.getGeoCode().getLatitude() + "," + mItem.getGeoCode().getLongitude());
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        v.getContext().startActivity(mapIntent);
+
+    }
+
+    private void confirmRemove(View view, PointOfInterest mItem) {
+        mValues.remove(mItem);
+        notifyDataSetChanged();
+        Toast.makeText(view.getContext(), mItem.getName() + " removed from your itinerary", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -95,6 +104,8 @@ public class TodayPointsAdapter extends RecyclerView.Adapter<TodayPointsAdapter.
         public final TextView mTime;
         public final ImageView mImage;
         public PointOfInterest mItem;
+        public final Button mNavigate;
+        public final ImageButton mRemove;
 
         public ViewHolder(View view) {
             super(view);
@@ -103,6 +114,8 @@ public class TodayPointsAdapter extends RecyclerView.Adapter<TodayPointsAdapter.
             mType = view.findViewById(R.id.poi_type);
             mImage = view.findViewById(R.id.poi_image);
             mTime = view.findViewById(R.id.poi_time);
+            mNavigate = view.findViewById(R.id.button_navigate);
+            mRemove = view.findViewById(R.id.button_remove);
         }
 
         @Override

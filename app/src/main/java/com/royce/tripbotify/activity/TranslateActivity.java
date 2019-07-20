@@ -71,6 +71,8 @@ public class TranslateActivity extends AppCompatActivity {
         translation.setLanguageCode(languageCode);
         savedText = mInputText.getText().toString();
         realm.commitTransaction();
+        Toast.makeText(TranslateActivity.this,"Translation saved locally",Toast.LENGTH_SHORT).show();
+
     }
 
 
@@ -78,6 +80,7 @@ public class TranslateActivity extends AppCompatActivity {
 
         if(isAPICalled)
             return;
+        Toast.makeText(TranslateActivity.this,"Please wait while Boolah translates for you",Toast.LENGTH_SHORT).show();
         isAPICalled = true;
         mLabel.setVisibility(View.GONE);
         mOutput.setText("");

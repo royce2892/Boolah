@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.royce.tripbotify.R;
 import com.royce.tripbotify.activity.AboutMeActivity;
+import com.royce.tripbotify.activity.GenericListActivity;
 import com.royce.tripbotify.adapter.RealmPointsAdapter;
 import com.royce.tripbotify.adapter.RealmTrackedFlightsAdapter;
 import com.royce.tripbotify.adapter.RealmTranslationsAdapter;
@@ -49,19 +50,23 @@ public class MyWorldFragment extends Fragment {
     private RealmTranslationsAdapter mTranslationsAdapter;
     private RealmTrackedFlightsAdapter mFlightsAdapter;
 
-    @OnClick(R.id.more_poi) void showMorePOI() {
-        //todo
+    @OnClick(R.id.more_poi)
+    void showMorePOI() {
+        startActivity(new Intent(getContext(), GenericListActivity.class).putExtra("type", GenericListActivity.REALM_PLACES));
     }
 
-    @OnClick(R.id.more_flights) void showMoreFlights() {
-        //todo
+    @OnClick(R.id.more_flights)
+    void showMoreFlights() {
+        startActivity(new Intent(getContext(), GenericListActivity.class).putExtra("type", GenericListActivity.REALM_FLIGHTS));
     }
 
-    @OnClick(R.id.more_trans) void showMoreTrans() {
-        //todo
+    @OnClick(R.id.more_trans)
+    void showMoreTrans() {
+        startActivity(new Intent(getContext(), GenericListActivity.class).putExtra("type", GenericListActivity.REALM_TRANSLATIONS));
     }
 
-    @OnClick(R.id.label_4) void gotoAboutMe() {
+    @OnClick(R.id.label_4)
+    void gotoAboutMe() {
         startActivity(new Intent(getContext(), AboutMeActivity.class));
     }
 
@@ -95,8 +100,8 @@ public class MyWorldFragment extends Fragment {
                 limit(2).
                 findAll();
 
-        for (RealmTrackFlight flight : flights)
-            Log.i(AppConstants.LOG_TAG, flight.toString());
+        //for (RealmTrackFlight flight : flights)
+        //  Log.i(AppConstants.LOG_TAG, flight.toString());
     }
 
     @Nullable

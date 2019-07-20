@@ -200,7 +200,7 @@ public class ViewPagerWithTabsActivity extends AppCompatActivity implements Disc
             }
         });
 
-        // mPager.setCurrentItem(0);
+        mPager.setCurrentItem(1);
 
     }
 

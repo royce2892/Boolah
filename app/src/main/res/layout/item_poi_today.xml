@@ -13,15 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
-        <!--<View
-            android:layout_width="match_parent"
-            android:id="@+id/white_line"
-            android:layout_below="@+id/poi_time"
-            android:background="@color/white"
-            android:layout_height="0dp"/>-->
-
         <ImageView
             android:id="@+id/poi_image"
             android:layout_width="match_parent"
@@ -32,10 +23,10 @@
 
         <TextView
             android:id="@+id/poi_time"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:gravity="center"
-            android:padding="4dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="16dp"
             android:layout_alignParentTop="true"
             android:text="11:00PM"
             android:textSize="22sp"
@@ -85,6 +76,30 @@
             android:text="church,sights,historic"
             android:textAllCaps="false"
             android:textColor="@color/black" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:text="Navigate"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:padding="4dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/green_gradient"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/button_navigate"
+            android:layout_height="28dp" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/ic_remove"
+            android:background="@null"
+            android:layout_margin="12dp"
+            android:id="@+id/button_remove"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 

@@ -12,4 +12,5 @@ public class AppConstants {
 
     public static final String PREFS_TAGS = "tags";
     public static final String PREFS_IATA = "iata";
+    public static final String PREFS_TINDER_SHOWN = "tinder";
 }

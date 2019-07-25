@@ -6,7 +6,7 @@ When you land in Fiji and are first welcomed with the greeting "Bula!" (pronounc
 
 Boolah does all the **travel planning for you**. It optimizes the quality and number of places covered a day at your destination based on your **interests** and your **distance** from the places. Boolah exists for the adventure seekers who live in the moment and make plans in a jiffy. Reports suggest that as much as 85% of today's vibrant young travel community never look for activities before they arrive at a place. What if we could simplify their itinerary after they arrive at a place? So in place of travelers browsing through a not-so-short list of recommendations and reviews to create their own itinerary, Boolah **builds the itinerary** for them.
 
-##How Boolah picks places for you
+## How Boolah picks places for you
 
 Open Boolah and you see a page to explore 8 cities we've hand picked for you. Each city has several points of interests with an image and description. The user can **swipe left or right** the point. Just swipe left if you like the place or wish to pass the same, right if you don't. It's as simple as that, and unlike those numerous dating apps, our places don't swipe right on you, you can always visit every place that you've swiped left. 
 
@@ -14,7 +14,7 @@ Boolah learns your travel interests based on your selections and we build the it
 
 *So swipe your way to a better, personalized AI powered itinerary tailor-made for you.*
 
-##Fares and cheapest round trip dates
+## Fares and cheapest round trip dates
 
 If you thought itinerary was just what you needed, here's more...
 
@@ -22,7 +22,7 @@ You also have the option to see **lowest fares** for the dates you've in mind fo
 Or if you're flexible on your dates and are looking for the cheapest round trip dates that can help your pockets fuel 2 or 3 air fare tickets at the normal cost of a single trip, we have that too! 
 That's how Boolah simplifies your travel options considering your timeline and pockets. Boolah also gives you the option to track the fares you've shortlisted from your *My world* page.
 
-##Follow the herd or stay distinct
+## Follow the herd or stay distinct
 
 Maybe you're a people person or maybe you wish to travel in solitude. Boolah lets you do both.
 For every flight fare you browse, we let you know what were the most traveled months in terms of people visiting from your hometown to your tourist destination. Maybe you wish to visit when the city is full of people buzzing or maybe you wish to visit an isolated place where you're in perfect harmony with the serenity of nature. 
@@ -30,7 +30,7 @@ For every flight fare you browse, we let you know what were the most traveled mo
 That's not all. 
 Boolah also lets you know what were the most booked and most traveled destinations from your hometown, helping you build your shortlist of dream destinations curated based on travel preferences of people near you.
 
-##Lit your trip with local language
+## Lit your trip with local language
 
 Ability to learn and save local language translations of common phrases is the icing on the cake. Knowing a bit of the local language can go a long way to improving the quality of your vacation. Fly anywhere in the world and you'll see that the locals will appreciate that you took the time to learn about their culture. Boolah let's you learn common phrases and save the translations locally just in case you forget and need a quick reminder once you enter the land of your dreams. You can take this translations offline as these are saved in your local app database that works with or without an internet connection
 

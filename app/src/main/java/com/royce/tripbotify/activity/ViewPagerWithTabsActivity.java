@@ -152,7 +152,7 @@ public class ViewPagerWithTabsActivity extends AppCompatActivity implements Disc
 
         HomePagerAdapter pagerAdapter = new HomePagerAdapter(getSupportFragmentManager());
 
-        mPager.setOffscreenPageLimit(2);
+//        mPager.setOffscreenPageLimit(1);
         mPager.setAdapter(pagerAdapter);
         mPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabs));
 

@@ -35,14 +35,21 @@ public class ApiClient {
         return okHttpClient;
     }
 
-    public static Response getTranslatedText(String json, String languageCode) throws IOException {
-        MediaType mediaType = MediaType.parse("application/json");
-        String url = "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=" + languageCode;
-        Request request = new Request.Builder()
-                .url(url).post(RequestBody.create(mediaType, json))
-                .addHeader("Ocp-Apim-Subscription-Key", "ca14e3435e41449e8da03f531e489c09")
-                .addHeader("Content-type", "application/json").build();
-        return getInstance().newCall(request).execute();
+    public static String getYandexTranslatedText(String text, String lang) {
+        try {
+            Request request = new Request.Builder()
+                    .url("https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20190725T073308Z.7e4dded554e68ab7.1c2aec88cd56169efa5c98e390a458a35f193814&text="
+                            + text + "&lang=" + lang)
+                    //.addHeader("x-wiz-device-type", "ANDROID")
+                    .build();
+            Response response = getInstance().newCall(request).execute();
+            if (response.code() == 200 && response.body() != null)
+                return new JSONObject(response.body().string()).getJSONArray("text").getString(0);
+            return "";
+        } catch (IOException | NullPointerException | JSONException e) {
+            Log.i(AppConstants.LOG_TAG, e.getLocalizedMessage());
+            return "";
+        }
     }
 
     public static String getUnsplashImageURL(String searchTerm) {

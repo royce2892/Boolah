@@ -88,17 +88,7 @@ public class MyWorldFragment extends Fragment {
 
     private void manipulateAboutMe() {
 
-        points = realm.where(RealmPointOfInterest.class).
-                limit(2).
-                findAll();
 
-        translations = realm.where(RealmTranslation.class).
-                limit(2).
-                findAll();
-
-        flights = realm.where(RealmTrackFlight.class).
-                limit(2).
-                findAll();
 
         //for (RealmTrackFlight flight : flights)
         //  Log.i(AppConstants.LOG_TAG, flight.toString());
@@ -120,7 +110,19 @@ public class MyWorldFragment extends Fragment {
     }
 
     private void initViews() {
-        manipulateAboutMe();
+      //  manipulateAboutMe();
+        Log.i(AppConstants.LOG_TAG,"called");
+        points = realm.where(RealmPointOfInterest.class).
+                limit(2).
+                findAll();
+
+        translations = realm.where(RealmTranslation.class).
+                limit(2).
+                findAll();
+
+        flights = realm.where(RealmTrackFlight.class).
+                limit(2).
+                findAll();
 
         mListLikedPlaces.setLayoutManager(new LinearLayoutManager(getContext()));
         mListSavedTranslations.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -132,6 +134,9 @@ public class MyWorldFragment extends Fragment {
         mListSavedTranslations.setAdapter(mTranslationsAdapter);
         mFlightsAdapter = new RealmTrackedFlightsAdapter(flights);
         mListTrackedFlights.setAdapter(mFlightsAdapter);
+
+        Log.i(AppConstants.LOG_TAG,"refresed with size " + points.size() + translations.size() + flights.size());
+
     }
 
     @Override

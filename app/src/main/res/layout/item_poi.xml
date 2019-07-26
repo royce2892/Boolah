@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="320dp"
+    android:layout_height="290dp"
     android:background="@android:color/white">
 
     <ImageView
         android:layout_width="match_parent"
         android:scaleType="fitXY"
         android:id="@+id/poi_image"
-        android:layout_centerHorizontal="true"
         android:src="@drawable/city_blr"
-        android:layout_height="240dp" />
+        android:layout_height="210dp" />
 
     <TextView
         android:id="@+id/poi_name"

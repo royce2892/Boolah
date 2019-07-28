@@ -1,14 +1,14 @@
 ## Testing Instructions
 
-*Open any city page, swipe left to save place locally, swipe right if you don't wish to save
-*Check lowest fares to the destination from your home location
-*See most busiest periods in the destination
-*Check cheapest round trip dates from your home location to this destination
-*See most traveled and most booked dates for your journey from home location to destination in flight fares list page
-*Track flight fares and view them locally in your my world page
-*Based on saved places itinerary can be found in the today tab 
-*Navigate to the itinerary place or remove it
-*Check my world page to see list of all saved translations, tracked flight prices and saved wishlist of places
+*Open any city page, swipe left to save place locally, swipe right if you don't wish to save </br>
+*Check lowest fares to the destination from your home location </br>
+*See most busiest periods in the destination</br>
+*Check cheapest round trip dates from your home location to this destination</br>
+*See most traveled and most booked dates for your journey from home location to destination in flight fares list page</br>
+*Track flight fares and view them locally in your my world page</br>
+*Based on saved places itinerary can be found in the today tab </br>
+*Navigate to the itinerary place or remove it</br>
+*Check my world page to see list of all saved translations, tracked flight prices and saved wishlist of places</br>
 
 
 ## Inspiration

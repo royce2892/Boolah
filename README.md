@@ -1,3 +1,16 @@
+## Testing Instructions
+
+*Open any city page, swipe left to save place locally, swipe right if you don't wish to save </br>
+*Check lowest fares to the destination from your home location </br>
+*See most busiest periods in the destination</br>
+*Check cheapest round trip dates from your home location to this destination</br>
+*See most traveled and most booked dates for your journey from home location to destination in flight fares list page</br>
+*Track flight fares and view them locally in your my world page</br>
+*Based on saved places itinerary can be found in the today tab </br>
+*Navigate to the itinerary place or remove it</br>
+*Check my world page to see list of all saved translations, tracked flight prices and saved wishlist of places</br>
+
+
 ## Inspiration
 
 When you land in Fiji and are first welcomed with the greeting "Bula!" (pronounced boo-lah!), you will certainly feel you have arrived somewhere special. The literal meaning of this word is **Life**, and Boolah aims to do exactly that, **"Say Hello to the Life of Travel"** encompassing your interests and empowered by local language support.

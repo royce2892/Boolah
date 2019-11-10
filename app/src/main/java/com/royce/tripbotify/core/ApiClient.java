@@ -35,6 +35,19 @@ public class ApiClient {
         return okHttpClient;
     }
 
+    public static JSONArray getSamplePlaces() {
+        try {
+            return new JSONArray(getInstance().newCall(new Request.Builder()
+                    .url("http://35.166.160.202/bangalore")
+                    .addHeader("Content-Type","application/json")
+                    .build()).execute().body().string());
+
+        } catch (IOException | NullPointerException | JSONException e) {
+            Log.i(AppConstants.LOG_TAG, "Sample JSON Array");
+            return null;
+        }
+    }
+
     public static String getYandexTranslatedText(String text, String lang) {
         try {
             Request request = new Request.Builder()

@@ -39,7 +39,8 @@ public class ViewPagerWithTabsActivity extends AppCompatActivity implements Disc
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         if (getSupportActionBar() != null)
-            getSupportActionBar().setTitle(TITLE[0]);
+            getSupportActionBar().hide();
+//            getSupportActionBar().setTitle(TITLE[0]);
         setupPagerAndInitTabs();
     }
 

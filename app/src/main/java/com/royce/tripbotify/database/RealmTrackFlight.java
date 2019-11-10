@@ -4,7 +4,7 @@ import io.realm.RealmObject;
 
 public class RealmTrackFlight extends RealmObject {
 
-    private String departureCode, arrivalCode, date, price, flightCode;
+    String departureCode, arrivalCode, date, price, flightCode;
 
     public String getDepartureCode() {
         return departureCode;

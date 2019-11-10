@@ -18,7 +18,7 @@ import com.amadeus.resources.PointOfInterest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.royce.tripbotify.R;
-import com.royce.tripbotify.core.ApiClient;
+import com.royce.tripbotify.database.RealmPlace;
 import com.royce.tripbotify.fragment.DiscoverFragment.OnDiscoverCitiesInteractionListener;
 
 import java.util.List;
@@ -27,13 +27,13 @@ import java.util.List;
  * {@link RecyclerView.Adapter} that can display a {@link PointOfInterest} and makes a call to the
  * specified {@link OnDiscoverCitiesInteractionListener}.
  */
-public class TodayPointsAdapter extends RecyclerView.Adapter<TodayPointsAdapter.ViewHolder> {
+public class NewTodayAdapter extends RecyclerView.Adapter<NewTodayAdapter.ViewHolder> {
 
-    private final List<PointOfInterest> mValues;
+    private final List<RealmPlace> mValues;
     private final int bg[] = {/*R.drawable.oval_bg_today_1, */R.drawable.oval_bg_today_2, R.drawable.oval_bg_today_1,
-        R.drawable.oval_bg_today_4,R.drawable.oval_bg_5};
+            R.drawable.oval_bg_today_4,R.drawable.oval_bg_5};
 
-    public TodayPointsAdapter(List<PointOfInterest> items) {
+    public NewTodayAdapter(List<RealmPlace> items) {
         mValues = items;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -52,13 +52,13 @@ public class TodayPointsAdapter extends RecyclerView.Adapter<TodayPointsAdapter.
         // Log.i(AppConstants.LOG_TAG, holder.mItem.toString());
         holder.mName.setText(holder.mItem.getName());
         holder.mTime.setText(position == 0 ? "Now" : position == 1 ? "Next" : "Later");
-        holder.mType.setText(holder.mItem.getTags()[0]);
+        holder.mType.setText(holder.mItem.getPromTag());
         //Log.i(AppConstants.LOG_TAG, ApiClient.getUnsplashImageURL(holder.mItem.getName()));
         holder.mLayout.setBackgroundResource(bg[position % 4]);
 
         try {
             Glide.with(holder.mImage)
-                    .load(ApiClient.getUnsplashImageURL(holder.mItem.getName()))
+                    .load(holder.mItem.getPhoto_url())
                     .apply(new RequestOptions().placeholder(R.drawable.city_blr).error(R.drawable.city_blr))
                     .into(holder.mImage);
         } catch (IllegalArgumentException ex) {
@@ -69,14 +69,15 @@ public class TodayPointsAdapter extends RecyclerView.Adapter<TodayPointsAdapter.
         holder.mRemove.setOnClickListener(v -> confirmRemove(v, holder.mItem));
     }
 
-    private void gotoMap(View v, PointOfInterest mItem) {
-        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + mItem.getGeoCode().getLatitude() + "," + mItem.getGeoCode().getLongitude());
+    private void gotoMap(View v, RealmPlace mItem) {
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + mItem.getLat() + "," + mItem.getLng());
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         v.getContext().startActivity(mapIntent);
+
     }
 
-    private void confirmRemove(View view, PointOfInterest mItem) {
+    private void confirmRemove(View view, RealmPlace mItem) {
         mValues.remove(mItem);
         notifyDataSetChanged();
         Toast.makeText(view.getContext(), mItem.getName() + " removed from your itinerary", Toast.LENGTH_SHORT).show();
@@ -94,7 +95,7 @@ public class TodayPointsAdapter extends RecyclerView.Adapter<TodayPointsAdapter.
         }
     }
 
-    public PointOfInterest getTopItem() {
+    public RealmPlace getTopItem() {
         if (mValues.size() > 0)
             return mValues.get(0);
         return null;
@@ -106,7 +107,7 @@ public class TodayPointsAdapter extends RecyclerView.Adapter<TodayPointsAdapter.
         public final TextView mType;
         public final TextView mTime;
         public final ImageView mImage;
-        public PointOfInterest mItem;
+        public RealmPlace mItem;
         public final Button mNavigate;
         public final ImageButton mRemove;
         public final RelativeLayout mLayout;

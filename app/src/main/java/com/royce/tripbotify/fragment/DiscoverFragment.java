@@ -2,9 +2,10 @@ package com.royce.tripbotify.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,29 +18,18 @@ import com.royce.tripbotify.database.City;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnDiscoverCitiesInteractionListener}
- * interface.
- */
 public class DiscoverFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 2;
     private OnDiscoverCitiesInteractionListener mListener;
     private List<City> cities = new ArrayList<>(8);
+    private RecyclerView mRecyclerView;
+    private DiscoverCitiesAdapter mCitiesAdapter;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public DiscoverFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static DiscoverFragment newInstance(int columnCount) {
         DiscoverFragment fragment = new DiscoverFragment();
@@ -62,7 +52,7 @@ public class DiscoverFragment extends Fragment {
 
     private void initData() {
         cities.add(new City("Bangalore", "BLR", 13.023577, 12.923210, 77.642256, 77.536856, R.drawable.city_blr, "hi"));
-        cities.add(new City("Barcelona", "BCN", 41.42, 41.347463, 2.228208, 2.11, R.drawable.city_barcelona,"es"));
+        cities.add(new City("Barcelona", "BCN", 41.42, 41.347463, 2.228208, 2.11, R.drawable.city_barcelona, "es"));
         cities.add(new City("Berlin", "BER", 52.541755, 52.490569, 13.457198, 13.354201, R.drawable.city_berlin, "de"));
         cities.add(new City("Dallas", "DFW", 32.806993, 32.740310, -96.737293, -96.836857, R.drawable.city_dallas, "en"));
         cities.add(new City("London", "LCY", 51.520180, 51.484703, -0.061048, -0.169882, R.drawable.city_london, "en"));
@@ -73,22 +63,19 @@ public class DiscoverFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_discover_list, container, false);
-
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new DiscoverCitiesAdapter(cities, mListener));
-        }
-        return view;
+        return inflater.inflate(R.layout.fragment_discover_list, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mRecyclerView = view.findViewById(R.id.list);
+        //if (mRecyclerView.getLayoutManager() == null)
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), mColumnCount));
+        if (mCitiesAdapter == null)
+            mCitiesAdapter = new DiscoverCitiesAdapter(cities, mListener);
+        mRecyclerView.setAdapter(new DiscoverCitiesAdapter(cities, mListener));
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -107,18 +94,7 @@ public class DiscoverFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnDiscoverCitiesInteractionListener {
-        // TODO: Update argument type and name
         void onCityClick(City item);
     }
 }

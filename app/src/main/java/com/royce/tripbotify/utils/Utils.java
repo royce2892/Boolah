@@ -59,7 +59,7 @@ public class Utils {
     public static String getJustDate(String date) {
        // Log.i(AppConstants.LOG_TAG, date);
         try {
-            Date d = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+05:30'", Locale.ENGLISH).parse(date);
+            Date d = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).parse(date);
             return new SimpleDateFormat("hh:mm").format(d);
         } catch (ParseException e1) {
             return "Time Date Parse Error";

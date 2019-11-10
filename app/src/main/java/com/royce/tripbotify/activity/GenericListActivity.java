@@ -63,10 +63,10 @@ public class GenericListActivity extends AppCompatActivity {
     private RealmResults<RealmTranslation> translations;
     private RealmResults<RealmTrackFlight> flights;
 
-   /* private RealmPointsAdapter mPointsAdapter;
-    private RealmTranslationsAdapter mTranslationsAdapter;
-    private RealmTrackedFlightsAdapter mFlightsRealmAdapter;
-*/
+    /* private RealmPointsAdapter mPointsAdapter;
+     private RealmTranslationsAdapter mTranslationsAdapter;
+     private RealmTrackedFlightsAdapter mFlightsRealmAdapter;
+ */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,15 +98,21 @@ public class GenericListActivity extends AppCompatActivity {
         } else if (type == REALM_TRANSLATIONS) {
             translations = realm.where(RealmTranslation.class).
                     findAll();
-          //  mTranslationsAdapter = new RealmTranslationsAdapter(translations);
+            //  mTranslationsAdapter = new RealmTranslationsAdapter(translations);
             mList.setAdapter(new RealmTranslationsAdapter(translations));
         } else {
             flights = realm.where(RealmTrackFlight.class).
                     findAll();
-           // mFlightsRealmAdapter = new RealmTrackedFlightsAdapter(flights);
+            // mFlightsRealmAdapter = new RealmTrackedFlightsAdapter(flights);
             mList.setAdapter(new RealmTrackedFlightsAdapter(flights));
         }
         mProgressBar.setVisibility(View.GONE);
+        realm.executeTransaction(realm -> {
+            RealmResults<RealmTrackFlight> result = realm.where(RealmTrackFlight.class).
+                    equalTo("date", "Time Date Parse Error").findAll();
+            Log.i(AppConstants.LOG_TAG, "found rows -> " + result.asJSON());
+            result.deleteAllFromRealm();
+        });
     }
 
     private void getData() {
@@ -226,9 +232,9 @@ public class GenericListActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle("Cheapest Flight Dates");
             else if (type == TYPE_FLIGHT_CHEAPEST_FARES)
                 getSupportActionBar().setTitle("Fares");
-            else if(type == REALM_TRANSLATIONS)
+            else if (type == REALM_TRANSLATIONS)
                 getSupportActionBar().setTitle("Saved Translations");
-            else if(type == REALM_PLACES)
+            else if (type == REALM_PLACES)
                 getSupportActionBar().setTitle("Liked Places");
             else
                 getSupportActionBar().setTitle("Tracked Flights");

@@ -7,9 +7,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.core.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +39,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import static android.support.v4.content.ContextCompat.checkSelfPermission;
+import static androidx.core.content.ContextCompat.checkSelfPermission;
 
 public class TodayFragment extends Fragment {
 

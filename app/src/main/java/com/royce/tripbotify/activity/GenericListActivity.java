@@ -3,9 +3,7 @@ package com.royce.tripbotify.activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +29,7 @@ import com.royce.tripbotify.database.RealmTrackFlight;
 import com.royce.tripbotify.database.RealmTranslation;
 import com.royce.tripbotify.utils.AppConstants;
 import com.royce.tripbotify.utils.PreferenceManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;

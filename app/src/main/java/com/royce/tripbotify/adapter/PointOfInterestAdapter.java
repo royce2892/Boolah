@@ -2,7 +2,7 @@ package com.royce.tripbotify.adapter;
 
 import android.os.AsyncTask;
 import android.os.StrictMode;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;

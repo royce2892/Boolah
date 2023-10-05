@@ -2,7 +2,7 @@ package com.royce.tripbotify.adapter;
 
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

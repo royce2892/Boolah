@@ -2,9 +2,6 @@ package com.royce.tripbotify.activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -12,11 +9,14 @@ import com.amadeus.Amadeus;
 import com.amadeus.Params;
 import com.amadeus.exceptions.ResponseException;
 import com.amadeus.resources.PointOfInterest;
+import com.google.android.material.tabs.TabLayout;
 import com.royce.tripbotify.R;
 import com.royce.tripbotify.adapter.HomePagerAdapter;
 import com.royce.tripbotify.database.City;
 import com.royce.tripbotify.fragment.DiscoverFragment;
 import com.royce.tripbotify.utils.AppConstants;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
